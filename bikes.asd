@@ -7,6 +7,7 @@
   :author "Jeremiah LaRocco <jeremiah_larocco@fastmail.com>"
   :license "ISC"
   :serial t
+  :depends-on (#:alexandria)
   :components ((:file "package")
                (:file "bikes")))
 

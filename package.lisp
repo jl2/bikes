@@ -3,14 +3,15 @@
 ;; Copyright (c) 2020 Jeremiah LaRocco <jeremiah.larocco@gmail.com>
 
 (defpackage #:bikes
-  (:use #:cl)
+  (:use #:cl #:alexandria)
   (:export
    #:gear-count
    #:gear-ratio
    #:gear-range
+   #:gain-ratio
    #:first-gear
    #:last-gear
-   #:show-gear-ratios
+   #:gear-ratios
    #:front
    #:rear
    #:sp-front

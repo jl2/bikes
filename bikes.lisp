@@ -18,9 +18,21 @@
 (defclass rohloff ()
   ((cog :initform 16 :initarg :cog)))
 
+(defparameter *wheel-radii*(list (cons :20-in 406)
+                                 (cons :24-in 507)
+                                 (cons :26-in 559)
+                                 (cons :275-in 584)
+                                 (cons :29-in 622)
+                                 (cons :700c 622)))
+(defun wheel-radius (size)
+  (assoc-value *wheel-radii* size))
+
 (defclass drivetrain ()
   ((front :initarg :front :accessor front)
-   (rear :initarg :rear :accessor rear)))
+   (rear :initarg :rear :accessor rear)
+   (crank-length :initarg :crank-length :accessor crank-length)
+   (wheel-size :initarg :wheel-size :accessor wheel-size :type (or :20-in :24-in :26-in :275-in :29-in :700c))
+   (tire-size :initarg :tire-size :accessor tire-size)))
 
 (defclass shift-position ()
   ((front :initarg :front :accessor sp-front)
@@ -132,55 +144,77 @@
   (/ (gear-ratio drivetrain (last-gear drivetrain))
      (gear-ratio drivetrain (first-gear drivetrain))))
 
-(defun show-gear-ratios (drivetrain)
+(defun gear-ratios (drivetrain)
   (loop
-     for sp = (first-gear drivetrain) then (next drivetrain sp)
+     for sp = (first-gear drivetrain)
+     then (next drivetrain sp)
      while sp
-     do
-       (format t "Gear ratio: ~a~%" (gear-ratio drivetrain sp))))
+     collect (gear-ratio drivetrain sp)))
 
-(defun single-speed (front rear)
+(defun gain-ratio (drivetrain shift-position)
+  "Return the ratio between the distance travelled by the bike and the distance travelled by a pedal."
+  (with-slots (wheel-size tire-size crank-length) drivetrain
+    (let* ((total-wheel-radius (+ (wheel-radius wheel-size) tire-size))
+           (wheel-crank-ratio (/ total-wheel-radius crank-length))
+           (gear-ratio (gear-ratio drivetrain shift-position)))
+      (* wheel-crank-ratio gear-ratio))))
+
+(defun single-speed (front rear &key (wheel-size :700c) (crank-length 170) (tire-size 25))
   (make-instance 'drivetrain
                  :front (make-instance 'chain-rings :cogs (make-array 1 :initial-element front))
-                 :rear (make-instance 'cassette :cogs (make-array 1 :initial-element rear))))
+                 :rear (make-instance 'cassette :cogs (make-array 1 :initial-element rear))
+                 :wheel-size wheel-size
+                 :tire-size tire-size
+                 :crank-length crank-length))
 
-(defun one-by (front &rest cassette)
+(defun one-by (front  &key (wheel-size :700c) (crank-length 170) (tire-size 50) cassette)
   (make-instance 'drivetrain
                  :front (make-instance 'chain-rings :cogs (make-array 1 :initial-element front))
-                 :rear (make-instance 'cassette :cogs (make-array (length cassette) :initial-contents cassette))))
+                 :rear (make-instance 'cassette :cogs (make-array (length cassette) :initial-contents cassette))
+                 :wheel-size wheel-size
+                 :tire-size tire-size
+                 :crank-length crank-length))
 
-(defun two-by (big small &rest cassette)
+(defun two-by (big small &key (wheel-size :700c) (crank-length 170) (tire-size 50) cassette)
   (make-instance 'drivetrain
                  :front (make-instance 'chain-rings :cogs (make-array 2 :initial-contents (list big small)))
-                 :rear (make-instance 'cassette :cogs (make-array (length cassette) :initial-contents cassette))))
+                 :rear (make-instance 'cassette :cogs (make-array (length cassette) :initial-contents cassette))
+                 :wheel-size wheel-size
+                 :tire-size tire-size
+                 :crank-length crank-length))
 
-(defun three-by (big middle small &rest cassette)
+(defun three-by (big middle small &key (wheel-size :700c) (crank-length 170) (tire-size 50) cassette)
   (make-instance 'drivetrain
                  :front (make-instance 'chain-rings :cogs (make-array 3 :initial-contents (list big middle small)))
-                 :rear (make-instance 'cassette :cogs (make-array (length cassette) :initial-contents cassette))))
+                 :rear (make-instance 'cassette :cogs (make-array (length cassette) :initial-contents cassette))
+                 :wheel-size wheel-size
+                 :tire-size tire-size
+                 :crank-length crank-length))
 
-(defun rohloff (chainring cog)
+(defun rohloff (chainring cog &key (wheel-size :700c) (crank-length 170) (tire-size 50))
   (make-instance 'drivetrain
                  :front (make-instance 'chain-rings :cogs (make-array 1 :initial-element chainring))
-                 :rear (make-instance 'rohloff :cog cog)))
+                 :rear (make-instance 'rohloff :cog cog)
+                 :wheel-size wheel-size
+                 :tire-size tire-size
+                 :crank-length crank-length))
 
-(defun two-by-rohloff (ring-1 ring-2 cog)
+(defun two-by-rohloff (ring-1 ring-2 cog &key (wheel-size :700c) (crank-length 170) (tire-size 50))
   (make-instance 'drivetrain
                  :front (make-instance 'chain-rings :cogs (make-array 2 :initial-contents (list ring-1 ring-2)))
-                 :rear (make-instance 'rohloff :cog cog)))
-;; (defun compare-gear-ratios (config1 config2)
-;;   (let ((c1-ratios (compute-ratios config1))
-;;         (c2-ratios (compute-ratios config2)))
-;;     (format t "~a~%~a~%" c1-ratios c2-ratios)))
+                 :rear (make-instance 'rohloff :cog cog)
+                 :wheel-size wheel-size
+                 :tire-size tire-size
+                 :crank-length crank-length))
 
 (defparameter *all-city* (single-speed 42 18))
 
-(defparameter *carver* (one-by 50 36 32 28 25 22 19 17 15 13 11))
+(defparameter *carver* (one-by 50 :cassette '(36 32 28 25 22 19 17 15 13 11)))
 
-(defparameter *carver-original* (two-by 50 34 36 32 28 25 22 19 17 15 13 11))
+(defparameter *carver-original* (two-by 50 34 :cassette '( 36 32 28 25 22 19 17 15 13 11)))
 
-(defparameter *fargo-original* (one-by 36 42 36 32 28 25 22 19 17 15 13 11))
-(defparameter *fargo-co-trail* (one-by 34 42 36 32 28 25 22 19 17 15 13 11))
-(defparameter *fargo-rohloff* (rohloff 34 16))
-(defparameter *fargo-rohloff-next* (rohloff 38 16))
-(defparameter *fargo-3* (two-by-rohloff 38 44 16))
+(defparameter *fargo-original* (one-by 36 :cassette '( 42 36 32 28 25 22 19 17 15 13 11) :crank-length 175))
+(defparameter *fargo-co-trail* (one-by 34 :cassette '( 42 36 32 28 25 22 19 17 15 13 11) :crank-length 175))
+(defparameter *fargo-rohloff* (rohloff 34 16 :crank-length 175))
+(defparameter *fargo-rohloff-next* (rohloff 38 16 :crank-length 175))
+(defparameter *fargo-3* (two-by-rohloff 38 44 16 :crank-length 175))
