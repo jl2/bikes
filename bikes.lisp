@@ -213,8 +213,9 @@
 
 (defparameter *carver-original* (two-by 50 34 :cassette '( 36 32 28 25 22 19 17 15 13 11)))
 
-(defparameter *fargo-original* (one-by 36 :cassette '( 42 36 32 28 25 22 19 17 15 13 11) :crank-length 175))
-(defparameter *fargo-co-trail* (one-by 34 :cassette '( 42 36 32 28 25 22 19 17 15 13 11) :crank-length 175))
-(defparameter *fargo-rohloff* (rohloff 34 16 :crank-length 175))
-(defparameter *fargo-rohloff-next* (rohloff 38 16 :crank-length 175))
-(defparameter *fargo-3* (two-by-rohloff 38 44 16 :crank-length 175))
+(defparameter *fargo-original* (one-by 36 :cassette '( 42 36 32 28 25 22 19 17 15 13 11) :crank-length 170))
+(defparameter *fargo-co-trail* (one-by 34 :cassette '( 42 36 32 28 25 22 19 17 15 13 11) :crank-length 170))
+(defparameter *fargo-rohloff-original* (rohloff 32 16 :crank-length 170))
+(defparameter *fargo-rohloff* (rohloff 36 16 :crank-length 170))
+(defparameter *fargo-rohloff-38* (rohloff 38 16 :crank-length 170))
+(defparameter *fargo-rohloff-two-by* (two-by-rohloff 34 44 16 :crank-length 170))

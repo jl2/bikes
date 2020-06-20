@@ -27,8 +27,9 @@
    #:*carver-original*
    #:*fargo-original*
    #:*fargo-co-trail*
+   #:*fargo-rohloff-original*
    #:*fargo-rohloff*
-   #:*fargo-rohloff-next*
-   #:*fargo-3*
+   #:*fargo-rohloff-38*
+   #:*fargo-rohloff-two-by*
 ))
 
