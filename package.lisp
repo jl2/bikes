@@ -1,6 +1,6 @@
 ;; package.lisp
 ;;
-;; Copyright (c) 2020 Jeremiah LaRocco <jeremiah.larocco@gmail.com>
+;; Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
 
 (defpackage #:bikes
   (:use #:cl #:alexandria)
@@ -32,4 +32,3 @@
    #:*fargo-rohloff-38*
    #:*fargo-rohloff-two-by*
 ))
-
