@@ -1,4 +1,4 @@
-;; bikes.lisp
+;; gear-ratios.lisp
 ;;
 ;; Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
 

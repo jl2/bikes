@@ -10,5 +10,6 @@
   :serial t
   :depends-on (#:alexandria)
   :components ((:file "package")
+               (:file "frame")
                (:file "gear-ratios")
                (:file "bikes")))
