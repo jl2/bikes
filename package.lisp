@@ -1,6 +1,6 @@
 ;; package.lisp
 ;;
-;; Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
+;; Copyright (c) 2023 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
 
 (defpackage #:bikes
   (:use #:cl #:alexandria)

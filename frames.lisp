@@ -1,5 +1,5 @@
 ;; frames.lisp
 ;;
-;; Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
+;; Copyright (c) 2023 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
 
 (in-package #:bikes)

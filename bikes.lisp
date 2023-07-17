@@ -1,6 +1,5 @@
 ;; bikes.lisp
-;;
-;; Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
+;; Copyright (c) 2023 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
 
 ;; A small library for computing gear ratios on different bike configurations.
 

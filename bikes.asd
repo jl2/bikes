@@ -1,6 +1,6 @@
 ;; bikes.asd
 ;;
-;; Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
+;; Copyright (c) 2023 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
 
 (asdf:defsystem #:bikes
   :description "A library for modeling bicycles, computing gear ratios, etc."
@@ -10,6 +10,5 @@
   :serial t
   :depends-on (#:alexandria)
   :components ((:file "package")
-               (:file "frame")
                (:file "gear-ratios")
                (:file "bikes")))

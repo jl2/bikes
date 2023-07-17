@@ -9,4 +9,4 @@ See project.org for more information and examples.
 
 ISC
 
-Copyright (c) 2022 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
+Copyright (c) 2023 Jeremiah LaRocco <jeremiah_larocco@fastmail.com>
