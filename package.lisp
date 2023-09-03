@@ -25,6 +25,8 @@
    #:*all-city*
    #:*carver*
    #:*carver-original*
+   #:*carver-new*
+   #:*carver-three*
    #:*fargo-original*
    #:*fargo-co-trail*
    #:*fargo-rohloff-original*

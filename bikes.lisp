@@ -8,6 +8,8 @@
 ;; TODO: Put these in a database or a file.
 (defparameter *all-city* (single-speed 42 18))
 
+(defparameter *carver-three* (one-by 36
+                               :cassette '(36 32 28 25 22 19 17 15 13 11)))
 
 (defparameter *carver* (one-by 50
                                :cassette '(36 32 28 25 22 19 17 15 13 11)))
@@ -16,6 +18,8 @@
 (defparameter *carver-original* (two-by 50 34
                                         :cassette '( 36 32 28 25 22 19 17 15 13 11)))
 
+(defparameter *carver-new* (two-by 46 30
+                                   :cassette '(34 30 27 25 23 21 19 17 15 13 11)))
 
 (defparameter *fargo-original* (one-by 36
                                        :cassette '( 42 36 32 28 25 22 19 17 15 13 11)
